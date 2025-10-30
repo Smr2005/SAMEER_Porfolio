@@ -37,6 +37,7 @@ INTERNSHIPS & EXPERIENCE:
 - Data Science Intern at SkillDzire Technologies
 - Data Analytics Intern at APSCHE x SmartBridge Virtual Internship (Current)
 - Skillbit Technologies Virtual Internship – Artificial Intelligence Intern
+- Working at HMG Technologies as a Junior software developer and contributing in projects related to Full Stack Development,agentic AI and AI solutions.
 
 STRENGTHS:
 - Dedicated and hardworking
