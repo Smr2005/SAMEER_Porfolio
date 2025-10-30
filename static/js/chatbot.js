@@ -9,6 +9,7 @@ PERSONAL INFORMATION:
 - Email: shaiksameershubhan@gmail.com
 - LinkedIn: https://www.linkedin.com/in/shaik-sameer-69a342a8
 - GitHub: https://github.com/Smr2005
+- Phone: +91 9652879470
 - Location: India
 
 EDUCATION:
@@ -50,6 +51,10 @@ AREAS FOR IMPROVEMENT:
 
 CAREER GOALS:
 - Passionate about AI and Data Science
+- developing impactful AI solutions
+- developping full-stack web applications
+- front-end and back-end development
+- 
 - Interested in developing innovative solutions
 - Seeking opportunities to grow in tech industry
 - Committed to continuous learning and development
