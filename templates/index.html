@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Sameer Shaik | 3D AI Portfolio</title>
+  <!-- Favicon -->
+ <link rel="icon" type="image/png" href="static\images\logo.jpeg">
+
   
   <!-- === COMPREHENSIVE DEVICE & BROWSER OPTIMIZATION === -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
@@ -61,7 +64,10 @@
 <body>
 <nav class="sameer-nav" role="navigation" aria-label="Primary Navigation">
   <div class="nav-inner container">
-    <a href="#home" class="nav-logo">Sameer</a>
+    <a href="#home" class="nav-logo">
+  <img src="static\images\logo.jpeg" alt="Sameer Logo" class="logo-img">
+  <span class="logo-text">Sameer</span>
+</a>
     <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <span></span>
       <span></span>
@@ -1234,13 +1240,7 @@
     </div>
   </section>
 
-  <!-- Floating Action Buttons -->
-  <a href="https://wa.me/919652879470" target="_blank" id="whatsapp-float">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
   <div id="chat-float-btn" class="chat-float-btn">
-    <i class="fas fa-comments" style="font-size: 24px; color: #0a0a0a;"></i>
     <div class="chat-tooltip">Hi! I'm Sameer's Assistant<br>Ask me anything!</div>
   </div>
 
@@ -1757,6 +1757,27 @@ window.addEventListener('scroll', () => {
   progressBar.style.width = scrolled + "%";
 });
 </script>
+<script>
+// Floating logo effect based on scroll
+const logo = document.querySelector('.logo-img');
+let ticking = false;
+
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      if (scrollY > 40) {
+        logo.classList.add('float-active');
+      } else {
+        logo.classList.remove('float-active');
+      }
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+</script>
+
 
 </body>
 </html>

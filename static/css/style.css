@@ -5444,8 +5444,8 @@ body.mobile-device textarea {
 /* === Glowing WhatsApp Button === */
 #whatsapp-float {
   position: fixed;
-  bottom: 50px;
-  left: 60px;
+  bottom: 900px;   /* ⬆️ moved upward (was 50px before) */
+  left: 10px;     /* same left position */
   background: #25D366;
   color: white;
   font-size: 1.2rem;
@@ -5465,6 +5465,7 @@ body.mobile-device textarea {
 #whatsapp-float:hover {
   transform: scale(1.08);
 }
+
 
 /* Adjust position for mobile so it doesn't overlap */
 
@@ -8220,7 +8221,6 @@ body.mobile-device textarea {
 }
 
 
-
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -8339,4 +8339,67 @@ body.mobile-device textarea {
 @keyframes burgerGlow {
   0%, 100% { box-shadow: 0 0 6px rgba(0,255,255,0.7); }
   50% { box-shadow: 0 0 12px rgba(0,150,255,1); }
+}
+/* ============================================
+   NAVBAR LOGO IMAGE & TEXT STYLING
+   ============================================ */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  position: relative;
+  z-index: 1000;
+}
+
+/* Logo image */
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+  transition: transform 0.3s ease, filter 0.3s ease;
+  animation: logoPulse 3s infinite ease-in-out;
+}
+
+.logo-img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 14px rgba(0, 255, 255, 0.8));
+}
+
+/* Logo text */
+.logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.3);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.logo-text:hover {
+  color: var(--neon-blue);
+  text-shadow: 0 0 12px rgba(0, 150, 255, 0.8);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logo-img {
+    width: 34px;
+    height: 34px;
+  }
+  .logo-text {
+    font-size: 1.1rem;
+  }
+}
+
+/* Pulse animation */
+@keyframes logoPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(0, 150, 255, 0.9));
+  }
 }
