@@ -402,8 +402,9 @@ const sameerFacts = `
 PERSONAL INFORMATION:
 - Name: Shaik Sameer
 - Email: shaiksameershubhan@gmail.com
-- LinkedIn: https://www.linkedin.com/in/shaik-sameer-69a3422a8
+- LinkedIn: https://www.linkedin.com/in/shaik-sameer-69a342a8
 - GitHub: https://github.com/Smr2005
+- Phone: +91 9652879470
 - Location: India
 
 EDUCATION:
@@ -431,6 +432,7 @@ INTERNSHIPS & EXPERIENCE:
 - Data Science Intern at SkillDzire Technologies
 - Data Analytics Intern at APSCHE x SmartBridge Virtual Internship (Current)
 - Skillbit Technologies Virtual Internship – Artificial Intelligence Intern
+- Working at HMG Technologies as a Junior software developer and contributing in projects related to Full Stack Development,agentic AI and AI solutions.
 
 STRENGTHS:
 - Dedicated and hardworking
@@ -445,6 +447,10 @@ AREAS FOR IMPROVEMENT:
 
 CAREER GOALS:
 - Passionate about AI and Data Science
+- developing impactful AI solutions
+- developping full-stack web applications
+- front-end and back-end development
+- 
 - Interested in developing innovative solutions
 - Seeking opportunities to grow in tech industry
 - Committed to continuous learning and development
@@ -454,6 +460,7 @@ CERTIFICATIONS & ACHIEVEMENTS:
 - Active participant in tech communities
 - Continuous learner with focus on emerging technologies
 `;
+
 
 // === Enhanced Chat Bot with Voice Features & Groq API ===
 function initializeChatBot() {
