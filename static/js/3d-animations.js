@@ -401,9 +401,11 @@ const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const sameerFacts = `
 PERSONAL INFORMATION:
 - Name: Shaik Sameer
-- Email: shaiksameershubhan@gmail.com
-- LinkedIn: https://www.linkedin.com/in/shaik-sameer-69a342a8
-- GitHub: https://github.com/Smr2005
+-Email: <a href="mailto:shaiksameershubhan@gmail.com" target="_blank">shaiksameershubhan@gmail.com</a>
+- LinkedIn: <a href="https://www.linkedin.com/in/shaik-sameer-69a342a8" target="_blank">linkedin.com/in/shaik-sameer-69a342a8</a>
+- GitHub: <a href="https://github.com/Smr2005" target="_blank">github.com/Smr2005</a>
+- Poetry Website: <a href="https://smr_writing.godaddysites.com/fbclid=PAT01DUANwZChleHRuA2FlbQIxMAABpzx5vmF3m3J3mYO0IhlzPUh-UygZTmD-XsZ-OQsL4VDvZnE2vx0nOfUqeq4q_aem_dU50o6N6lpV2lcmsJhDa4Q" target="_blank">smr_writing.godaddysites.com</a>
+- Instagram (Poetry Page): <a href="https://www.instagram.com/s.m.r_writings?igsh=a3o0NGV4bWY0M2lv" target="_blank">@s.m.r_writings</a>
 - Phone: +91 9652879470
 - Location: India
 
@@ -459,6 +461,14 @@ CERTIFICATIONS & ACHIEVEMENTS:
 - Various certifications in AI, Data Science, and Web Development
 - Active participant in tech communities
 - Continuous learner with focus on emerging technologies
+
+
+POET & CREATIVE WORK:
+- Sameer is also a passionate poet and creative writer.
+- His writings reflect emotions, solitude, and deep reflections on life.
+- You can explore his poetry and writings here:
+  🌐 <a href="https://smr_writing.godaddysites.com/fbclid=PAT01DUANwZChleHRuA2FlbQIxMAABpzx5vmF3m3J3mYO0IhlzPUh-UygZTmD-XsZ-OQsL4VDvZnE2vx0nOfUqeq4q_aem_dU50o6N6lpV2lcmsJhDa4Q" target="_blank">smr_writing.godaddysites.com</a>
+  📸 <a href="https://www.instagram.com/s.m.r_writings?igsh=a3o0NGV4bWY0M2lv" target="_blank">@s.m.r_writings</a>
 `;
 
 
