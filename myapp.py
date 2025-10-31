@@ -3,6 +3,10 @@ from dotenv import load_dotenv
 import os
 import smtplib
 from email.message import EmailMessage
+import base64
+import requests
+
+
 
 # === Load .env Variables ===
 load_dotenv()
@@ -169,6 +173,7 @@ def favicon16():
 # === Start Server ===
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
