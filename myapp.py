@@ -63,7 +63,7 @@ def request_resume():
 
     try:
         r = requests.post(
-            "https://api.brevo.com/v3/smtp/email",
+            "https://api.sendinblue.com/v3/smtp/email",
             headers={"api-key": api_key, "Content-Type": "application/json"},
             json=data,
             timeout=10
@@ -135,7 +135,7 @@ def approve_resume():
     try:
         # Send via Brevo REST API
         response = requests.post(
-            "https://api.brevo.com/v3/smtp/email",
+            "https://api.sendinblue.com/v3/smtp/email",
             headers={
                 "api-key": api_key,
                 "Content-Type": "application/json"
@@ -173,6 +173,7 @@ def favicon16():
 # === Start Server ===
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
