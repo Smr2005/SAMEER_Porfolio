@@ -20,12 +20,13 @@ def request_resume():
     name = request.form.get("name")
     email = request.form.get("email")
 
-    if not name or not email:
+   if not name or not email:
         return "<h3>❌ Please fill in all fields.</h3>"
 
     sender_email = os.getenv("SENDER_EMAIL")
     sender_password = os.getenv("SENDER_PASSWORD")
-    recipient_email = sender_email  # You (Sameer) receive it
+    smtp_server = os.getenv("SMTP_SERVER", "smtp-relay.sendinblue.com")
+    smtp_port = int(os.getenv("SMTP_PORT", 587))
 
     approve_link = f"https://sameer-porfolio.onrender.com/approve_resume?email={email}&name={name}"
     deny_link = f"mailto:{email}?subject=Regarding%20Resume%20Request&body=Hi%20{name},%20thank%20you%20for%20your%20interest.%20Currently%20I’m%20unable%20to%20share%20my%20resume.%20Regards,%20Sameer"
@@ -142,3 +143,4 @@ def favicon16():
 # === Start Server ===
 if __name__ == "__main__":
     app.run(debug=True)
+
