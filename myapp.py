@@ -20,18 +20,27 @@ def request_resume():
     name = request.form.get("name")
     email = request.form.get("email")
 
-   if not name or not email:
+    if not name or not email:
         return "<h3>❌ Please fill in all fields.</h3>"
 
     sender_email = os.getenv("SENDER_EMAIL")
     sender_password = os.getenv("SENDER_PASSWORD")
     smtp_server = os.getenv("SMTP_SERVER", "smtp-relay.sendinblue.com")
     smtp_port = int(os.getenv("SMTP_PORT", 587))
+    recipient_email = sender_email  # you receive the request
 
-    approve_link = f"https://sameer-porfolio.onrender.com/approve_resume?email={email}&name={name}"
-    deny_link = f"mailto:{email}?subject=Regarding%20Resume%20Request&body=Hi%20{name},%20thank%20you%20for%20your%20interest.%20Currently%20I’m%20unable%20to%20share%20my%20resume.%20Regards,%20Sameer"
+    approve_link = (
+        f"https://sameer-porfolio.onrender.com/approve_resume"
+        f"?email={email}&name={name}"
+    )
+    deny_link = (
+        f"mailto:{email}"
+        f"?subject=Regarding%20Resume%20Request"
+        f"&body=Hi%20{name},%20thank%20you%20for%20your%20interest."
+        f"%20Currently%20I’m%20unable%20to%20share%20my%20resume."
+        f"%20Regards,%20Sameer"
+    )
 
-    # Compose the HTML message
     html_content = f"""
     <html>
       <body style="font-family: Arial; background-color: #f4f4f4; padding: 20px;">
@@ -48,22 +57,29 @@ def request_resume():
     """
 
     msg = EmailMessage()
-    msg['Subject'] = "📥 Resume Access Request via Portfolio"
-    msg['From'] = sender_email
-    msg['To'] = recipient_email
+    msg["Subject"] = "📥 Resume Access Request via Portfolio"
+    msg["From"] = sender_email
+    msg["To"] = recipient_email
     msg.set_content(f"New resume request from {name} ({email}).")
     msg.add_alternative(html_content, subtype="html")
 
+    import smtplib, ssl
+    context = ssl.create_default_context()
+
     try:
-        server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
-        server.login(sender_email, sender_password)
-        server.send_message(msg)
-        server.quit()
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls(context=context)
+            server.login(sender_email, sender_password)
+            server.send_message(msg)
+
         try:
-            return render_template('resume_success.html', name=name, email=email)
+            return render_template("resume_success.html", name=name, email=email)
         except Exception as template_error:
-            return f"<h3>✅ Thank you {name}! Sameer will respond shortly to {email}. <br><small>Template Error: {str(template_error)}</small></h3>"
+            return f"<h3>✅ Thank you {name}! Sameer will respond shortly to {email}. <br><small>Template Error: {template_error}</small></h3>"
+
     except Exception as e:
+        import traceback
+        print("DETAILED SMTP ERROR:", traceback.format_exc())
         return f"<h3>❌ Error sending notification email: {str(e)}</h3>"
 
 
@@ -143,4 +159,5 @@ def favicon16():
 # === Start Server ===
 if __name__ == "__main__":
     app.run(debug=True)
+
 
