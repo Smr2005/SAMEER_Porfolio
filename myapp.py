@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, send_from_directory
 from dotenv import load_dotenv
 import os
-import smtplib
-from email.message import EmailMessage
+import requests
 import base64
 
 # === Load environment variables ===
@@ -10,12 +9,11 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# === Home route ===
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# === Resume Request Form Handler ===
+# === Resume Request Handler ===
 @app.route('/request_resume', methods=["POST"])
 def request_resume():
     name = request.form.get("name")
@@ -24,16 +22,12 @@ def request_resume():
     if not name or not email:
         return "<h3>❌ Please fill in all fields.</h3>"
 
+    brevo_api_key = os.getenv("BREVO_API_KEY")
     sender_email = os.getenv("SENDER_EMAIL")
-    sender_password = os.getenv("SENDER_PASSWORD")
-    smtp_server = os.getenv("SMTP_SERVER", "smtp-relay.brevo.com")
-    smtp_port = int(os.getenv("SMTP_PORT", 587))
 
-    # Approve/Deny links
     approve_link = f"https://sameer-porfolio.onrender.com/approve_resume?email={email}&name={name}"
     deny_link = f"mailto:{email}?subject=Regarding%20Resume%20Request"
 
-    # === Email HTML content ===
     html_content = f"""
     <html>
       <body style="font-family: Arial; background-color: #f4f4f4; padding: 20px;">
@@ -49,41 +43,39 @@ def request_resume():
     </html>
     """
 
-    msg = EmailMessage()
-    msg["Subject"] = "📥 Resume Access Request via Portfolio"
-    msg["From"] = sender_email
-    msg["To"] = sender_email
-    msg.set_content(f"New resume request from {name} ({email}).")
-    msg.add_alternative(html_content, subtype="html")
+    data = {
+        "sender": {"email": sender_email, "name": "Sameer Portfolio"},
+        "to": [{"email": sender_email}],
+        "subject": "📥 Resume Access Request via Portfolio",
+        "htmlContent": html_content
+    }
 
-    try:
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.starttls()
-            server.login(sender_email, sender_password)
-            server.send_message(msg)
-        try:
-            return render_template('resume_success.html', name=name, email=email)
-        except Exception as template_error:
-            return f"<h3>✅ Thank you {name}! Sameer will respond shortly to {email}.<br><small>Template Error: {template_error}</small></h3>"
-    except Exception as e:
-        return f"<h3>❌ Error sending notification email: {str(e)}</h3>"
+    response = requests.post(
+        "https://api.brevo.com/v3/smtp/email",
+        headers={"accept": "application/json", "api-key": brevo_api_key, "content-type": "application/json"},
+        json=data
+    )
 
+    if response.status_code == 201:
+        return render_template('resume_success.html', name=name, email=email)
+    else:
+        return f"<h3>❌ Brevo API error: {response.status_code} - {response.text}</h3>"
 
-# === Resume Approval Route ===
+# === Resume Approval Handler ===
 @app.route('/approve_resume')
 def approve_resume():
     hr_email = request.args.get("email")
     name = request.args.get("name")
 
+    brevo_api_key = os.getenv("BREVO_API_KEY")
     sender_email = os.getenv("SENDER_EMAIL")
-    sender_password = os.getenv("SENDER_PASSWORD")
-    smtp_server = os.getenv("SMTP_SERVER", "smtp-relay.brevo.com")
-    smtp_port = int(os.getenv("SMTP_PORT", 587))
 
     resume_path = "static/resume/sameer_resume.pdf"
-
     if not os.path.exists(resume_path):
         return "<h3>❌ Resume file not found. Please upload it to /static/resume/</h3>"
+
+    with open(resume_path, "rb") as f:
+        pdf_base64 = base64.b64encode(f.read()).decode()
 
     cold_email = f"""
 Dear {name},
@@ -104,44 +96,29 @@ AI & Data Science Developer
 💻 GitHub: https://github.com/Smr2005
     """
 
-    msg = EmailMessage()
-    msg["Subject"] = "📎 Resume from Sameer Shaik"
-    msg["From"] = sender_email
-    msg["To"] = hr_email
-    msg.set_content(cold_email)
+    data = {
+        "sender": {"email": sender_email, "name": "Sameer Shaik"},
+        "to": [{"email": hr_email, "name": name}],
+        "subject": "📎 Resume from Sameer Shaik",
+        "textContent": cold_email,
+        "attachment": [{"content": pdf_base64, "name": "Sameer_Shaik_Resume.pdf"}]
+    }
 
-    # Attach the PDF resume
-    try:
-        with open(resume_path, "rb") as f:
-            msg.add_attachment(f.read(), maintype="application", subtype="pdf", filename="Sameer_Shaik_Resume.pdf")
-    except FileNotFoundError:
-        return "<h3>❌ Resume file not found. Please upload it to /static/resume/</h3>"
+    response = requests.post(
+        "https://api.brevo.com/v3/smtp/email",
+        headers={"accept": "application/json", "api-key": brevo_api_key, "content-type": "application/json"},
+        json=data
+    )
 
-    try:
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.starttls()
-            server.login(sender_email, sender_password)
-            server.send_message(msg)
-        try:
-            return render_template('resume_sent.html', email=hr_email, name=name)
-        except Exception as template_error:
-            return f"<h3>✅ Resume sent successfully to {hr_email}!<br><small>Template Error: {template_error}</small></h3>"
-    except Exception as e:
-        return f"<h3>❌ Failed to send resume: {str(e)}</h3>"
+    if response.status_code == 201:
+        return render_template('resume_sent.html', email=hr_email, name=name)
+    else:
+        return f"<h3>❌ Brevo send error: {response.status_code} - {response.text}</h3>"
 
-
-# === Favicon Routes ===
+# === Favicon ===
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory('static/images', 'favicon.ico')
-
-@app.route('/static/images/favicon-32x32.png')
-def favicon32():
-    return send_from_directory('static/images', 'favicon-32x32.png')
-
-@app.route('/static/images/favicon-16x16.png')
-def favicon16():
-    return send_from_directory('static/images', 'favicon-16x16.png')
 
 # === Run app ===
 if __name__ == "__main__":
