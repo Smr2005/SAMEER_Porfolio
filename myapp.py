@@ -16,7 +16,7 @@ def index():
 
 
 # === Resume Request Form Handler ===
-@app.route('/request_resume', methods=["POST"])
+@app.route('/Access_Resume', methods=["POST"])
 def request_resume():
     name = request.form.get("name")
     email = request.form.get("email")
@@ -146,5 +146,6 @@ def favicon():
 # === Start Flask App ===
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
