@@ -396,6 +396,7 @@ function initializeNavigation() {
 // === GROQ API CONFIGURATION ===
 const GROQ_API_KEY = "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"; // Replace with your actual Groq API key
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
+
 // === FACTS ABOUT SAMEER ===
 const sameerFacts = `
 PERSONAL INFORMATION:
@@ -469,6 +470,7 @@ POET & CREATIVE WORK:
   🌐 <a href="https://smr_writing.godaddysites.com/fbclid=PAT01DUANwZChleHRuA2FlbQIxMAABpzx5vmF3m3J3mYO0IhlzPUh-UygZTmD-XsZ-OQsL4VDvZnE2vx0nOfUqeq4q_aem_dU50o6N6lpV2lcmsJhDa4Q" target="_blank">smr_writing.godaddysites.com</a>
   📸 <a href="https://www.instagram.com/s.m.r_writings?igsh=a3o0NGV4bWY0M2lv" target="_blank">@s.m.r_writings</a>
 `;
+
 
 
 // === Enhanced Chat Bot with Voice Features & Groq API ===
@@ -551,7 +553,7 @@ function initializeChatBot() {
 
         const headers = {
             "Content-Type": "application/json",
-             "Authorization": `Bearer ${GROQ_API_KEY}`
+            "Authorization": `Bearer ${GROQ_API_KEY}`
         };
 
         const prompt = `You are Laddu, Sameer's friendly AI assistant for his personal portfolio website. You should act as Sameer's enthusiastic and professional assistant, answering questions about him with personality and charm.
