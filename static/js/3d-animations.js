@@ -394,8 +394,8 @@ function initializeNavigation() {
 }
 
 // === GROQ API CONFIGURATION ===
-const GROQ_API_KEY = "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"; // Replace with your actual Groq API key
-const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
+const GEMINI_API_KEY = "AIzaSyDNTm9lF4WCEBBDzgTqQ2BJ_R9QQY7iyPU";
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
 // === FACTS ABOUT SAMEER ===
 const sameerFacts = `
@@ -552,7 +552,7 @@ function initializeChatBot() {
 
         const headers = {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${GROQ_API_KEY}`
+            "Authorization": `Bearer ${GEMINI_API_KEY}`
         };
 
         const prompt = `You are Laddu, Sameer's friendly AI assistant for his personal portfolio website. You should act as Sameer's enthusiastic and professional assistant, answering questions about him with personality and charm.
@@ -583,11 +583,11 @@ Answer:`;
             max_tokens: 1000
         };
 
-        console.log('Making API request to:', GROQ_API_URL);
+        console.log('Making API request to:', GEMINI_API_URL);
         console.log('Payload:', payload);
 
         try {
-            const response = await fetch(GROQ_API_URL, {
+            const response = await fetch(GEMINI_API_URL, {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(payload)
