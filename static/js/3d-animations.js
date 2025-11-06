@@ -1521,6 +1521,7 @@ function initializePerformanceOptimizations() {
                 // Trigger skill bar animations when skills section is visible
                 if (entry.target.id === 'skills') {
                     animateSkillBars();
+                    
                 }
             }
         });
